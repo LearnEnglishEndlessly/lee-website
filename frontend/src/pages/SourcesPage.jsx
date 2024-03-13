@@ -159,7 +159,7 @@ const SourcesPage = () => {
           </thead>
           <tbody>
             {filteredData.map((item) => (
-              <tr className="border-t border-[#9D9D9D]">
+              <tr className="border-t border-[#9D9D9D]" key={item.id}>
                 <td scope="row" className="px-6 py-4 whitespace-nowrap">
                   {item.site}
                 </td>
