@@ -1,4 +1,4 @@
-import ListData from "../../../backend/data.json";
+import data from "../../../backend/data.json";
 import { BackButton } from "../components/Icons";
 import Search from "../assets/icons/search.svg";
 import { Link } from "react-router-dom";
@@ -100,17 +100,17 @@ const SourcesPage = () => {
             </tr>
           </thead>
           <tbody>
-            {ListData.map((data) => (
+            {data.map((item) => (
               <tr className="border-t border-[#9D9D9D]">
                 <td scope="row" className="px-6 py-4 whitespace-nowrap">
-                  {data.site}
+                  {item.site}
                 </td>
-                <td className="px-6 py-4">{data.aspect}</td>
-                <td className="px-6 py-4">{data.level}</td>
-                <td className="px-6 py-4">{data.topic}</td>
+                <td className="px-6 py-4">{item.aspect}</td>
+                <td className="px-6 py-4">{item.level}</td>
+                <td className="px-6 py-4">{item.topic}</td>
                 <td className="py-4">
                   <Link
-                    to={data.link}
+                    to={item.link}
                     className="bg-redlee px-5 py-1 text-white"
                   >
                     Learn
