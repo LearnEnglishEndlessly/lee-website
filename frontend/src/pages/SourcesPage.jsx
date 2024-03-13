@@ -2,8 +2,56 @@ import data from "../../../backend/data.json";
 import { BackButton } from "../components/Icons";
 import Search from "../assets/icons/search.svg";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const SourcesPage = () => {
+  const [filteredData, setFilteredData] = useState([]);
+  const [filters, setFilters] = useState({
+    aspect: "",
+    level: "",
+    topic: "",
+  });
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    setFilteredData(data);
+  }, []);
+
+  const handleFilterChange = (event) => {
+    const { name, value } = event.target;
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [name]: value,
+    }));
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const resetFilters = () => {
+    setFilters({
+      aspect: "",
+      level: "",
+      topic: "",
+    });
+    setSearchTerm("");
+    setFilteredData(data);
+  };
+
+  useEffect(() => {
+    let filteredResult = data.filter((item) => {
+      return (
+        (filters.aspect === "" || item.aspect === filters.aspect) &&
+        (filters.level === "" || item.level === filters.level) &&
+        (filters.topic === "" || item.topic === filters.topic) &&
+        (searchTerm === "" ||
+          item.site.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
+    });
+    setFilteredData(filteredResult);
+  }, [filters, searchTerm]);
+
   return (
     <div className="container w-page_center mx-auto" id="sources">
       <Link
@@ -12,68 +60,78 @@ const SourcesPage = () => {
       >
         <BackButton /> Back
       </Link>
-      <div className="col-span-12 flex">
+      <form className="col-span-12 flex">
         <input
           type="text"
-          name=""
-          id=""
-          placeholder="Search..."
           className="w-full border pl-12 text-basefont font-extralight bg-white rounded-l-md outline-none shadow-lg"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={handleSearchChange}
         />
-        <div className="bg-redlee py-4 px-7 rounded-r-md shadow-lg">
+        <button
+          type="submit"
+          className="bg-redlee py-4 px-7 rounded-r-md shadow-lg"
+        >
           <img
             src={Search}
             alt="search.svg"
             className="w-8 m-auto bg-transparent"
           />
-        </div>
-      </div>
+        </button>
+      </form>
 
       <div className="flex items-end gap-10 pt-6 pb-8">
         <div className="w-[31%]">
           <label className="text-2xl font-semibold">Aspect</label>
           <select
-            name=""
-            id=""
             className="bg-white py-3 w-full mt-4 cursor-pointer shadow-md outline-none"
+            id=""
+            name="aspect"
+            value={filters.aspect}
+            onChange={handleFilterChange}
           >
             <option value="">All</option>
-            <option value="">Listening</option>
-            <option value="">Speaking</option>
-            <option value="">Reading</option>
-            <option value="">Writing</option>
+            <option value="listening">Listening</option>
+            <option value="speaking">Speaking</option>
+            <option value="reading">Reading</option>
+            <option value="writing">Writing</option>
           </select>
         </div>
         <div className="w-[31%]">
           <label className="text-2xl font-semibold">Level</label>
           <select
-            name=""
-            id=""
             className="bg-white py-3 w-full mt-4 cursor-pointer shadow-md outline-none"
+            id=""
+            name="level"
+            value={filters.level}
+            onChange={handleFilterChange}
           >
             <option value="">All</option>
-            <option value="">{`(A1) Beginners`}</option>
-            <option value="">{`(A2) Pre-Intermediate`}</option>
-            <option value="">{`(B1) Intermediate`}</option>
-            <option value="">{`(B2) Upper-Intermediate`}</option>
-            <option value="">{`(C1) Advanced`}</option>
-            <option value="">{`(C2) Proficiency`}</option>
+            <option value="A1">{`(A1) Beginners`}</option>
+            <option value="A2">{`(A2) Pre-Intermediate`}</option>
+            <option value="B1">{`(B1) Intermediate`}</option>
+            <option value="B2">{`(B2) Upper-Intermediate`}</option>
+            <option value="C1">{`(C1) Advanced`}</option>
+            <option value="C2">{`(C2) Proficiency`}</option>
           </select>
         </div>
         <div className="w-[31%]">
           <label className="text-2xl font-semibold">Topic</label>
           <select
-            name=""
-            id=""
             className="bg-white py-3 w-full mt-4 cursor-pointer shadow-md outline-none"
+            id=""
+            name="topic"
+            value={filters.topic}
+            onChange={handleFilterChange}
           >
             <option value="">All</option>
-            <option value="">Sports</option>
+            <option value="sports">Sports</option>
           </select>
         </div>
         <div className="w-[7%] mb-2">
           <span
             className="text-2xl text-[#ABAFB5] cursor-pointer"
+            onClick={resetFilters}
           >
             Clear
           </span>
@@ -100,7 +158,7 @@ const SourcesPage = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((item) => (
+            {filteredData.map((item) => (
               <tr className="border-t border-[#9D9D9D]">
                 <td scope="row" className="px-6 py-4 whitespace-nowrap">
                   {item.site}
