@@ -6,10 +6,16 @@ export default {
       width: {
         page_center: "80%",
       },
+      boxShadow: {
+        baseShadow: "0 10px 20px 0 rgb(217, 217, 217)",
+      },
       colors: {
         redlee: "#E0303A",
         background: "#F4F4F4",
         footer: "#57423F",
+        beginner: "#614E8B",
+        intermediate: "#374F77",
+        advanced: "#2F4858",
       },
       fontSize: {
         banner: "clamp(3rem, 5vw, 3.75rem)",
@@ -18,7 +24,7 @@ export default {
         basefont: "clamp(1rem, 5vw, 1.25rem)",
       },
       gridTemplateColumns: {
-        "3.5": "span 3.5",
+        3.5: "span 3.5",
       },
     },
   },

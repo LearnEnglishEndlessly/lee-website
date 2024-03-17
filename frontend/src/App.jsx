@@ -2,11 +2,11 @@
 import { NavLink, Link } from "react-router-dom";
 import { useState } from "react";
 
-// FAQ
+// FAQ data
 import data from "../../backend/faq.json";
 
 // Images
-import Logo from "./assets/logo_lee.svg";
+import Logo from "/logo_lee.svg";
 import Banner from "./assets/banner_img.png";
 import About from "./assets/about_us.png";
 import Navigation from "./components/Navigation";
@@ -16,7 +16,7 @@ import { MenuButton, CloseButton } from "./components/Icons";
 import FAQ from "./components/Faq";
 
 function App() {
-  // Navbar
+  // Navbar hook
   const [isOpen, setIsOpen] = useState(false);
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
@@ -34,13 +34,13 @@ function App() {
           <NavLink to="#">
             <img
               src={Logo}
-              alt="logo.png"
+              alt="logo.svg"
               className="w-[70%] md:w-[80%] lg:w-full"
             />
           </NavLink>
 
           {/* Mobile Navbar */}
-          <div className="hidden md:inline md:space-x-10 lg:space-x-20 text-lg">
+          <div className="hidden md:inline-block md:space-x-10 lg:space-x-20 text-lg">
             <Navigation />
           </div>
           <div className="md:hidden">
@@ -54,6 +54,7 @@ function App() {
             ) : null}
           </div>
           {/* End of Mobile Navbar */}
+          
         </div>
         {/* End of Navbar */}
 
@@ -69,7 +70,7 @@ function App() {
               independent learners.
             </p>
             <Link to="/sources">
-              <button className="w-full md:w-fit py-3 px-6 uppercase bg-redlee text-white font-semibold text-xl rounded-md">
+              <button className="w-full md:w-fit py-3 px-6 uppercase bg-redlee text-white font-semibold text-basefont rounded">
                 learn now
               </button>
             </Link>
@@ -78,7 +79,7 @@ function App() {
             <img
               src={Banner}
               alt="banner.svg"
-              className="bg-[#d9d9d9] rounded-full m-auto"
+              className="bg-[#d9d9d9] m-auto rounded-full shadow-baseShadow"
             />
           </div>
         </div>
@@ -111,9 +112,8 @@ function App() {
         <div className="grid grid-cols-12 py-14">
           <div className="col-span-1"></div>
 
-          <div className="col-span-10">
-            <h2 className="text-header font-bold text-center">{`FAQ's`}</h2>
-
+          <div className="col-span-12 md:col-span-10">
+            <h2 className="text-header font-bold text-center">FAQs</h2>
             <div className="mt-5">
               {data.map((faqdata) => (
                 <FAQ

@@ -1,17 +1,23 @@
+// List data
 import data from "../../../backend/data.json";
+
+// Components
 import { BackButton } from "../components/Icons";
 import Search from "../assets/icons/search.svg";
+
+// Dependencies
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const SourcesPage = () => {
+
+  // Filter
   const [filteredData, setFilteredData] = useState([]);
   const [filters, setFilters] = useState({
     aspect: "",
     level: "",
     topic: "",
   });
-  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     setFilteredData(data);
@@ -25,17 +31,21 @@ const SourcesPage = () => {
     }));
   };
 
+  // Search
+  const [findItems, setFindItems] = useState("");
+
   const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
+    setFindItems(event.target.value);
   };
 
-  const resetFilters = () => {
+  // Reset
+  const handleReset = () => {
     setFilters({
       aspect: "",
       level: "",
       topic: "",
     });
-    setSearchTerm("");
+    setFindItems("");
     setFilteredData(data);
   };
 
@@ -45,27 +55,29 @@ const SourcesPage = () => {
         (filters.aspect === "" || item.aspect === filters.aspect) &&
         (filters.level === "" || item.level === filters.level) &&
         (filters.topic === "" || item.topic === filters.topic) &&
-        (searchTerm === "" ||
-          item.site.toLowerCase().includes(searchTerm.toLowerCase()))
+        (findItems === "" ||
+          item.site.toLowerCase().includes(findItems.toLowerCase()))
       );
     });
     setFilteredData(filteredResult);
-  }, [filters, searchTerm]);
+  }, [filters, findItems]);
 
   return (
-    <div className="container w-page_center mx-auto" id="sources">
+    <div className="container w-page_center mx-auto py-8" id="sources">
+
       <Link
         to="/"
-        className="flex items-center text-2xl gap-x-4 text-[#898989] my-8 w-fit"
+        className="flex items-center text-basefont gap-x-2 text-[#ABAFB5] w-fit"
       >
         <BackButton /> Back
       </Link>
-      <form className="col-span-12 flex">
+      
+      <form className="col-span-12 flex py-5">
         <input
           type="text"
-          className="w-full border pl-12 text-basefont font-extralight bg-white rounded-l-md outline-none shadow-lg"
-          placeholder="Search..."
-          value={searchTerm}
+          className="w-full border pl-8 text-basefont font-extralight bg-white rounded-l-md outline-none shadow-lg"
+          placeholder="search site..."
+          value={findItems}
           onChange={handleSearchChange}
         />
         <button
@@ -80,9 +92,9 @@ const SourcesPage = () => {
         </button>
       </form>
 
-      <div className="flex items-end gap-10 pt-6 pb-8">
+      <div className="flex items-end gap-2 md:gap-10 pb-8">
         <div className="w-[31%]">
-          <label className="text-2xl font-semibold">Aspect</label>
+          <label className="text-basefont font-semibold">Aspect</label>
           <select
             className="bg-white py-3 w-full mt-4 cursor-pointer shadow-md outline-none"
             id=""
@@ -98,7 +110,7 @@ const SourcesPage = () => {
           </select>
         </div>
         <div className="w-[31%]">
-          <label className="text-2xl font-semibold">Level</label>
+          <label className="text-basefont font-semibold">Level</label>
           <select
             className="bg-white py-3 w-full mt-4 cursor-pointer shadow-md outline-none"
             id=""
@@ -116,7 +128,7 @@ const SourcesPage = () => {
           </select>
         </div>
         <div className="w-[31%]">
-          <label className="text-2xl font-semibold">Topic</label>
+          <label className="text-basefont font-semibold">Topic</label>
           <select
             className="bg-white py-3 w-full mt-4 cursor-pointer shadow-md outline-none"
             id=""
@@ -125,51 +137,65 @@ const SourcesPage = () => {
             onChange={handleFilterChange}
           >
             <option value="">All</option>
-            <option value="sports">Sports</option>
           </select>
         </div>
         <div className="w-[7%] mb-2">
           <span
-            className="text-2xl text-[#ABAFB5] cursor-pointer"
-            onClick={resetFilters}
+            className="text-basefont text-[#ABAFB5] cursor-pointer"
+            onClick={handleReset}
           >
             Clear
           </span>
         </div>
       </div>
 
-      <div className="relative overflow-x-auto max-h-[50vh]">
-        <table className="w-full text-left rtl:text-right text-basefont">
-          <thead className="text-[#A9AFAD] sticky top-0">
+      <div className="relative overflow-x-auto w-full max-h-[50vh]">
+        <table className="w-full text-left rtl:text-right text-base">
+          <thead className="text-[#ABAFB5] sticky top-0 z-10">
             <tr>
-              <th scope="col" className="px-6 py-1 font-medium">
+              <th scope="col" className="px-6 py-1 font-medium bg-white">
                 Site
               </th>
-              <th scope="col" className="px-6 py-1 font-medium">
+              <th scope="col" className="px-6 py-1 font-medium bg-white">
                 Aspect
               </th>
-              <th scope="col" className="px-6 py-1 font-medium">
+              <th scope="col" className="px-6 py-1 font-medium bg-white">
                 Level
               </th>
-              <th scope="col" className="px-6 py-1 font-medium">
+              <th scope="col" className="px-6 py-1 font-medium bg-white">
                 Topic
               </th>
-              <th scope="col" className="px-6 py-1 font-medium"></th>
+              <th scope="col" className="px-6 py-1 font-medium bg-white"></th>
             </tr>
           </thead>
           <tbody>
             {filteredData.map((item) => (
-              <tr className="border-t border-[#9D9D9D]" key={item.id}>
-                <td scope="row" className="px-6 py-4 whitespace-nowrap">
+              <tr className="border-t border-[#9D9D9D] text-base" key={item.id}>
+                <td scope="row" className="px-6 py-4 whitespace-nowrap bg-white">
                   {item.site}
                 </td>
-                <td className="px-6 py-4">{item.aspect}</td>
-                <td className="px-6 py-4">{item.level}</td>
-                <td className="px-6 py-4">{item.topic}</td>
-                <td className="py-4">
+                <td className="px-6 py-4 bg-white">{item.aspect}</td>
+                <td className="px-6 py-4 bg-white">
+                  <span
+                    className={
+                      "rounded-sm py-0 px-2 text-white " +
+                      (item.level.slice(0, 1) === "A"
+                        ? "bg-beginner"
+                        : item.level.slice(0, 1) === "B"
+                        ? "bg-intermediate"
+                        : item.level.slice(0, 1) === "C"
+                        ? "bg-advanced"
+                        : null)
+                    }
+                  >
+                    {item.level}
+                  </span>
+                </td>
+                <td className="px-6 py-4 bg-white">{item.topic}</td>
+                <td className="py-4 bg-white">
                   <Link
                     to={item.link}
-                    className="bg-redlee px-5 py-1 text-white"
+                    className="bg-redlee px-5 py-1 text-white rounded"
                   >
                     Learn
                   </Link>

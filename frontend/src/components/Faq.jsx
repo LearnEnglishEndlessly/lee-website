@@ -6,10 +6,10 @@ const Faq = ({question, answer}) => {
   const [openFAQ, setOpenFAQ] = useState(false);
 
   return (
-    <div className="container border-[9D9D9D] border-t-2 p-5">
+    <div className="container border-[9D9D9D] border-t-2 p-3 md:p-5">
       <button
         onClick={() => setOpenFAQ(!openFAQ)}
-        className="flex justify-between w-full gap-x-8 items-center"
+        className="flex justify-between w-full gap-x-8 items-center text-left"
       >
         <h2 className="text-basefont font-medium">{question}</h2>
         {openFAQ ? (
@@ -19,7 +19,7 @@ const Faq = ({question, answer}) => {
         )}
       </button>
       <div
-        className={`grid overflow-hidden transition-all duration-300 ease-in-out ${
+        className={`grid transition-all duration-300 ease-in-out ${
           openFAQ ? "grid-rows-[1fr] opacity-100 py-5" : "grid-rows-[0fr] opacity-0 py-0"
         }`}
       >

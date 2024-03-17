@@ -26,7 +26,7 @@ export const CloseButton = () => {
 export const BackButton = () => {
   return (
     <>
-      <img src={Back} alt="back.svg" className="w-8 h-8" />
+      <img src={Back} alt="back.svg" className="w-6 h-6" />
     </>
   );
 };
