@@ -14,6 +14,7 @@ import Navigation from "./components/Navigation";
 // Components
 import { MenuButton, CloseButton } from "./components/Icons";
 import FAQ from "./components/Faq";
+import Footer from "./components/Footer"
 
 function App() {
   // Navbar hook
@@ -131,9 +132,7 @@ function App() {
       {/* End of FAQ Section */}
 
       {/* Footer Section */}
-      <div className="container-fluid bg-footer text-white text-center text-basefont py-6">
-        Made with 🤍 by CJ | 2024
-      </div>
+      <Footer />
       {/* End of Footer Section */}
     </>
   );
