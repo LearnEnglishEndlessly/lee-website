@@ -149,7 +149,8 @@ const SourcesPage = () => {
           </div>
         </div>
 
-        <div className="relative overflow-x-auto w-full max-h-[50vh]">
+        {/* PC or Tablet View */}
+        <div className="relative overflow-x-auto w-full max-h-[50vh] hidden md:inline-block">
           <table className="w-full text-left rtl:text-right text-base">
             <thead className="text-[#ABAFB5] sticky top-0 z-10">
               <tr>
@@ -210,6 +211,46 @@ const SourcesPage = () => {
               ))}
             </tbody>
           </table>
+        </div>
+
+        <div className="relative overflow-x-auto w-full max-h-[50vh] md:hidden">
+          {filteredData.map((item) => (
+            <div className="p-4 bg-white border-t border-[rgb(157,157,157)]">
+              <div className="flex justify-between items-center bg-white gap-x-4">
+                <div className="space-y-1 bg-white">
+                  <h1 className="bg-white">{item.topic}</h1>
+                  <div className="space-x-1 bg-white">
+                    <span
+                      className={
+                        "rounded-sm py-0 px-2 text-white " +
+                        (item.level.slice(0, 1) === "A"
+                          ? "bg-beginner"
+                          : item.level.slice(0, 1) === "B"
+                          ? "bg-intermediate"
+                          : item.level.slice(0, 1) === "C"
+                          ? "bg-advanced"
+                          : null)
+                      }
+                    >
+                      {item.level}
+                    </span>
+                    <span className="rounded-sm py-0 px-2 text-white bg-redlee">
+                      {item.aspect}
+                    </span>
+                  </div>
+                  <h1 className="bg-white">{item.site}</h1>
+                </div>
+                <div className="py-4 bg-white">
+                  <Link
+                    to={item.link}
+                    className="bg-redlee px-5 py-1 text-white rounded"
+                  >
+                    Learn
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
       <Footer />
